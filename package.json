@@ -9,8 +9,7 @@
   "engines": {
     "node": "14.17.1"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Tamara Soria",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1",
