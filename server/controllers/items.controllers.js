@@ -1,4 +1,4 @@
-const { getData } = require("../helpers/meli-api");
+const { getData } = require("../helpers/api.helper");
 const { mapperItems, mapperCategories, mapperItem } = require("../mappers/items.mapper");
 const AuthorResponse = require("../response/author.response");
 
@@ -7,7 +7,7 @@ const getItems = async (req, res) => {
   let data = null;
   let items = [];
   let categories = [];
-  let url = `https://api.mercadolibre.com/sites/MLA/search?q=${query}`;
+  let url = `${process.env.API_SEARCH}?q=${query}`;
 
   await getData(url).then((result) => {
     data = result;
@@ -35,8 +35,8 @@ const getItems = async (req, res) => {
 
 const getItem = async (req, res) => {
   let id = req.params['id'];
-  let urlItem = `https://api.mercadolibre.com/items/${id}`;
-  let urlDescription = `https://api.mercadolibre.com/items/${id}/description`
+  let urlItem = `${process.env.API_ITEM}/${id}`;
+  let urlDescription = `${process.env.API_ITEM}/${id}/description`
   let data = null;
   let description = null;
   let item = null;
