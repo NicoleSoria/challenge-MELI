@@ -1,11 +1,9 @@
-const express = require("express");
-const routes = express.Router();
-const { getData } = require("../gestor/meli-api");
-const { mapperItems, mapperCategories } = require("../mappers/mapper");
-const AuthorResponse = require("../response/author");
+const { getData } = require("../helpers/meli-api");
+const { mapperItems, mapperCategories, mapperItem } = require("../mappers/items.mapper");
+const AuthorResponse = require("../response/author.response");
 
-routes.get('/api/items/:query', async (req, res) => {
-  let query = req.params['query'];
+const getItems = async (req, res) => {
+  let query = req.query.q;
   let data = null;
   let items = [];
   let categories = [];
@@ -19,28 +17,29 @@ routes.get('/api/items/:query', async (req, res) => {
     items = resp;
   })
 
-  await mapperCategories(data.available_filters[0].values).then((resp) => {
-    categories = resp;
-  })
+  let filters = data.filters.find(x => x.id == 'category');
+  if(filters) {
+    await mapperCategories(filters.values[0]).then((resp) => {
+      categories = resp;
+    })
+  }
 
   let author = new AuthorResponse('Tamara', 'Soria');
 
   res.status(200).json({
-    result: data,
     author: author,
     items: items,
     categories: categories
   })
-});
+}
 
-
-routes.get('/api/items/:id', async (req, res) => {
+const getItem = async (req, res) => {
   let id = req.params['id'];
   let urlItem = `https://api.mercadolibre.com/items/${id}`;
   let urlDescription = `https://api.mercadolibre.com/items/${id}/description`
   let data = null;
   let description = null;
-  let items = [];
+  let item = null;
   let author = new AuthorResponse('Tamara', 'Soria');
 
   await getData(urlItem).then((result) => {
@@ -48,17 +47,18 @@ routes.get('/api/items/:id', async (req, res) => {
   })
 
   await getData(urlDescription).then((result) => {
-    description = result;
+    description = result.plain_text;
   })
   
-  res.status(200).json({
-    result: data,
-    author: author,
-    items: items,
-    description: description
+  await mapperItem(data, description).then((resp) => {
+    item = resp;
   })
 
-});
+  res.status(200).json({
+    author: author,
+    item: item
+  })
 
+}
 
-module.exports = routes;
+module.exports = { getItems, getItem };
