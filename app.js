@@ -3,7 +3,7 @@ var cors = require('cors');
 var env = require('node-env-file'); // .env file
 const items_routes = require('./routes/items.routes');
 
-env(__dirname + '/.env');
+// env(__dirname + '/.env');
 const port = process.env.PORT || 3000
 var app = express();
 
