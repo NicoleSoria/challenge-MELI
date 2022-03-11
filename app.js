@@ -8,6 +8,6 @@ var app = express();
 app.use(express.json());
 app.use('/api', items_routes);
 
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
   console.log('Express server listo!!');
 })
