@@ -9,8 +9,8 @@ function mapperItems(data) {
 
             for (let i = 0; i < data.length; i++) {
                 const element = data[i];
-                let decimals = JSON.stringify(element.price).split('.');
-                let price = new PriceResponse(element.price, element.currency_id, decimals[1])
+                let splitPrice = JSON.stringify(element.price).split('.');
+                let price = new PriceResponse(splitPrice[0], element.currency_id, splitPrice[1])
                 let item = new ItemsResponse(element, price);
                 items.push(item);
             }
@@ -44,8 +44,8 @@ function mapperCategories(filters) {
 function mapperItem(data, description) {
     return new Promise((resolve, reject) => {
         try {
-            let decimals = JSON.stringify(data.price).split('.');
-            let price = new PriceResponse(data.price, data.currency_id, decimals[1])
+            let splitPrice = JSON.stringify(data.price).split('.');
+            let price = new PriceResponse(splitPrice[0], data.currency_id, splitPrice[1]);
             let item = new ItemResponse(data, price, description);
 
             return resolve(item);
