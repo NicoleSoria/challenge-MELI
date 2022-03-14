@@ -2,6 +2,12 @@ const ItemResponse = require("../response/item.response");
 const ItemsResponse = require("../response/items.response");
 const PriceResponse = require("../response/price.response");
 
+/**
+ * Función encargada de obtener los datos de listado de productos con el formato de json necesario para el response
+ * @param {*} data 
+ * @returns Listado de productos con el formato de json necesario para el response
+ * 
+ */
 function mapperItems(data) {
     return new Promise((resolve, reject) => {
         try {
@@ -17,13 +23,18 @@ function mapperItems(data) {
 
             return resolve(items);
         }
-        catch(error) {
-          return reject(error);
-    
+        catch (error) {
+            return reject(error);
+
         }
     })
 }
 
+/**
+ * 
+ * @param {*} filters 
+ * @returns Listado de categorias con el formato de json necesario para el response
+ */
 function mapperCategories(filters) {
     return new Promise((resolve, reject) => {
         try {
@@ -34,13 +45,19 @@ function mapperCategories(filters) {
             }
             return resolve(items);
         }
-        catch(error) {
-          return reject(error);
-    
+        catch (error) {
+            return reject(error);
+
         }
     })
 }
 
+/**
+ * Función encargada de obtenerlos datos de producto para el response
+ * @param {*} data 
+ * @param {*} description 
+ * @returns Datos de producto para el response
+ */
 function mapperItem(data, description) {
     return new Promise((resolve, reject) => {
         try {
@@ -50,9 +67,9 @@ function mapperItem(data, description) {
 
             return resolve(item);
         }
-        catch(error) {
-          return reject(error);
-    
+        catch (error) {
+            return reject(error);
+
         }
     })
 }
