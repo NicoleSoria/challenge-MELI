@@ -3,7 +3,10 @@ var cors = require('cors');
 var env = require('node-env-file'); // .env file
 const items_routes = require('./routes/items.routes');
 
-//Habilitar solo para pruebas locales, ya que para probar local usa las variables contenidas en .env
+/**
+ * Habilitar solo para pruebas locales, ya que para probar local usa las variables contenidas en .env
+ * en entorno productivo toma la variable configurada en heroku 
+ */
 //env(__dirname + '/.env'); 
 
 const port = process.env.PORT || 3000
