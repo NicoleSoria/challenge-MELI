@@ -4,7 +4,7 @@ var env = require('node-env-file'); // .env file
 const items_routes = require('./routes/items.routes');
 
 //Habilitar solo para pruebas locales, ya que para probar local usa las variables contenidas en .env
-env(__dirname + '/.env'); 
+//env(__dirname + '/.env'); 
 
 const port = process.env.PORT || 3000
 var app = express();
