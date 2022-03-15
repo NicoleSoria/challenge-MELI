@@ -37,9 +37,9 @@ const getItems = async (req, res) => {
   }
 
   let author = new AuthorResponse('Tamara', 'Soria');
-  let resposne = new ListResponseModel(author, items, categories);
+  let response = new ListResponseModel(author, items, categories);
 
-  res.status(200).json(resposne)
+  res.status(200).json(response)
 }
 
 /**
