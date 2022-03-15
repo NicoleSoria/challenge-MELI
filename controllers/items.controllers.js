@@ -1,6 +1,8 @@
 const { getData } = require("../helpers/api.helper");
 const { mapperItems, mapperCategories, mapperItem } = require("../mappers/items.mapper");
 const AuthorResponse = require("../response/author.response");
+const DetailResponseModel = require("../response/detail.response");
+const ListResponseModel = require("../response/list.response");
 
 /**
  * 
@@ -35,12 +37,9 @@ const getItems = async (req, res) => {
   }
 
   let author = new AuthorResponse('Tamara', 'Soria');
+  let resposne = new ListResponseModel(author, items, categories);
 
-  res.status(200).json({
-    author: author,
-    items: items,
-    categories: categories
-  })
+  res.status(200).json(resposne)
 }
 
 /**
@@ -73,11 +72,9 @@ const getItem = async (req, res) => {
     item = resp;
   })
 
-  res.status(200).json({
-    author: author,
-    item: item
-  })
+  let response = new DetailResponseModel(author, item);
 
+  res.status(200).json(response)
 }
 
 module.exports = { getItems, getItem };
