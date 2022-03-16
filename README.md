@@ -2,7 +2,7 @@
 
 Desarrollo de apis para challenge de mercado libre
 
-Generado con Node v14.17.1
+Generado con Node v14.17.1 y express
 
 ## Acceso a api desplegada
 
