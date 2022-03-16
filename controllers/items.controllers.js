@@ -21,7 +21,7 @@ const getItems = async (req, res) => {
   await getData(url).then((result) => {
     data = result;
   }).catch((error) => {
-    return res.status(400).json({err: error.message})
+
   });
 
   // Mapper para obtener los datos de los items recibidos en la consulta en el objeto que necesita el front
@@ -63,20 +63,21 @@ const getItem = async (req, res) => {
   await getData(urlItem).then((result) => {
     data = result;
   }).catch((error) => {
-    return res.status(400).json({err: error.message})
   });
 
-  // Uso de api.helper para realizar la petición HTTP
-  await getData(urlDescription).then((result) => {
-    description = result.plain_text;
-  }).catch((error) => {
-    return res.status(400).json({err: error.message})
-  });
+  if (data != null) {
+    // Uso de api.helper para realizar la petición HTTP
+    await getData(urlDescription).then((result) => {
+      description = result.plain_text;
+    }).catch((error) => {
 
-  // Hago uso del mapper para obtener los datos necesarios para el response
-  await mapperItem(data, description).then((resp) => {
-    item = resp;
-  });
+    });
+
+    // Hago uso del mapper para obtener los datos necesarios para el response
+    await mapperItem(data, description).then((resp) => {
+      item = resp;
+    });
+  }
 
   let response = new DetailResponseModel(author, item);
 
